@@ -1,0 +1,17 @@
+# Python
+backend/.venv/
+backend/**/__pycache__/
+backend/**/*.pyc
+
+# Data outputs
+backend/app/data/api_results.json
+backend/scheduled-report.json
+
+# Node
+frontend/node_modules/
+frontend/dist/
+
+# OS/Editor
+.DS_Store
+Thumbs.db
+.vscode/*.log

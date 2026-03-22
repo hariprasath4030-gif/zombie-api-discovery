@@ -1,0 +1,37 @@
+name: Scheduled API Scan
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run scheduled scan
+        env:
+          SCAN_URLS: https://jsonplaceholder.typicode.com/posts,https://jsonplaceholder.typicode.com/users,https://jsonplaceholder.typicode.com/unknown-endpoint
+          SCAN_SWAGGER_URLS: https://petstore3.swagger.io/api/v3/openapi.json
+        run: python run_scheduled_scan.py
+
+      - name: Upload report artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: zombie-api-report
+          path: backend/scheduled-report.json

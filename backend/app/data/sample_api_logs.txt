@@ -1,0 +1,4 @@
+/legacy/orders
+/deprecated/payments
+/shadow/internal/report
+/old/auth/login
